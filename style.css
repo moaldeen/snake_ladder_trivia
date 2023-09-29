@@ -140,3 +140,20 @@ h1 {
 h2 {
   margin-top: 0;
 }
+
+.player-count-container {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.player-count-container label {
+  font-size: 2.0rem;
+  font-weight: bold;
+}
+
+#playerInfo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
