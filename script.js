@@ -13,6 +13,9 @@ let walking, walkSpeed = 450;
 let locked = false;
 let slideSpeed = .5;
 let rolling, rollCount, rollMax, rollSpeed = 85;
+let rollingSound = new Audio('dice_sound.wav')
+let jumpSound = new Audio('jump.mp3');
+
 
 let diceResults = {};
 
@@ -23,21 +26,21 @@ let activePlayer;
 const playerNames = ["Player 1", "Player 2", "Player 3", "Player 4"];
 
 const obstacles = [
-    { type: 'snake', start: 97, end: 78 },
-    { type: 'snake', start: 95, end: 56 },
-    { type: 'snake', start: 88, end: 24 },
-    { type: 'snake', start: 62, end: 18 },
-    { type: 'snake', start: 48, end: 26 },
-    { type: 'snake', start: 36, end: 6 },
+    { type: 'snake', start: 99, end: 41 },
+    { type: 'snake', start: 89, end: 53 },
+    { type: 'snake', start: 76, end: 58 },
+    { type: 'snake', start: 66, end: 45 },
+    { type: 'snake', start: 54, end: 31 },
+    { type: 'snake', start: 43, end: 18 },
+    { type: 'snake', start: 40, end: 3 },
+    { type: 'snake', start: 27, end: 5 },
     { type: 'snake', start: 32, end: 10 },
-    { type: 'ladder', start: 1, end: 38 },
-    { type: 'ladder', start: 4, end: 14 },
-    { type: 'ladder', start: 8, end: 30 },
-    { type: 'ladder', start: 21, end: 42 },
-    { type: 'ladder', start: 28, end: 76 },
-    { type: 'ladder', start: 50, end: 67 },
-    { type: 'ladder', start: 71, end: 92 },
-    { type: 'ladder', start: 80, end: 99 }
+    { type: 'ladder', start: 4, end: 25 },
+    { type: 'ladder', start: 13, end: 46 },
+    { type: 'ladder', start: 50, end: 69 },
+    { type: 'ladder', start: 42, end: 63 },
+    { type: 'ladder', start: 62, end: 81 },
+    { type: 'ladder', start: 74, end: 92 },
 ];
 
 canvas.width = width;
@@ -122,6 +125,7 @@ const walk = async () => {
                     activePlayer.target = obstacles[i].end;
                     slide(activePlayer, walkSequence[endSquare - 1].x, walkSequence[endSquare - 1].y, slideSpeed);
                     sliding = true;
+                    jumpSound.play();
                     break;
                 }
             }
@@ -190,6 +194,7 @@ const rollDice = (evt) => {
 };
 
 const doRoll = () => {
+    rollingSound.play(); 
     rolled = Math.floor(Math.random() * 6 + 1);
 
     diceRollDisplay(rolled);
@@ -219,8 +224,9 @@ const resetGame = () => {
 
     drawPlayers();
 
-    resetGameBtn.classList.add('hidden');
 };
+
+
 
 diceDisplay.addEventListener('click', rollDice);
 resetGameBtn.addEventListener('click', resetGame);
@@ -272,7 +278,7 @@ const displayQuestion = async (questionData) => {
             choiceElement.classList.add('choice');
             choiceElement.addEventListener('click', () => {
                 questionPopup.style.display = 'none';
-                // Check if the selected choice is correct
+                
                 const isCorrect = choice === correctAnswer;
                 resolve(isCorrect);
             });
@@ -288,12 +294,12 @@ const initPlayers = (numPlayers = 2) => {
     players = [];
     for (let i = 1; i <= numPlayers; i++) {
         const player = {
-            id: playerNames[i - 1], // Set the player name based on the array
+            id: playerNames[i - 1], 
             current: 0,
             target: 0,
             x: 0,
             y: 0,
-            colour: `#${Math.floor(Math.random() * 16777215).toString(16)}`, // Random color
+            colour: `#${Math.floor(Math.random() * 16777215).toString(16)}`, 
         };
         players.push(player);
     }
@@ -305,10 +311,30 @@ const addPlayerInputFields = () => {
     playerCountSelect.addEventListener('change', (event) => {
         const numPlayers = parseInt(event.target.value);
         initPlayers(numPlayers);
-        updatePlayersInfo(); // Update player information
+        addFields(numPlayers);
+        updatePlayersInfo(); 
         resetGame();
     });
 };
+
+const addFields = (num) => {
+    const playerNames = document.getElementById('playerInfoEdit');
+    playerNames.innerHTML = '';
+    for (let i = 1; i <= num; i++) {
+        const playerInput = document.createElement('input');
+        playerInput.classList.add('player-edit-field');
+        playerInput.setAttribute('type', 'text');
+        playerInput.setAttribute('id', `player${i}`);
+        playerInput.setAttribute('placeholder', `Player ${i}`);
+        playerInput.addEventListener('change', (event) => {
+            const playerIndex = parseInt(event.target.id.replace('player', '')) - 1;
+            players[playerIndex].id = event.target.value;
+            updatePlayersInfo(); 
+            resetGame();
+        });
+        playerNames.appendChild(playerInput);
+    }
+}
 
 
 const updatePlayersInfo = () => {
@@ -318,13 +344,14 @@ const updatePlayersInfo = () => {
         const playerDiv = document.createElement('div');
         playerDiv.classList.add('player-info');
         playerDiv.style.color = player.colour;
-        playerDiv.textContent = player.id; // Use the player's name here
+        playerDiv.textContent = player.id; 
         playerInfo.appendChild(playerDiv);
     });
 };
 
 initPlayers(2);
 addPlayerInputFields();
+addFields(2);
 updatePlayersInfo();
 setPlayerID();
-generatePlayerNames(2);
+// generatePlayerNames(2);
