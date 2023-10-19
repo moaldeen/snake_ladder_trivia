@@ -115,20 +115,42 @@ const walk = async () => {
 
     if (activePlayer.current >= activePlayer.target) {
         clearInterval(walking);
-        const questionData = getRandomQuestion();
+        
 
         for (let i = 0; i < obstacles.length; i++) {
             if (obstacles[i].start === activePlayer.target) {
+               
+                const triviaResult = await getRandomQuestion();
+                const questionData =   triviaResult; 
                 const isCorrect = await displayQuestion(questionData);
+
                 if (isCorrect) {
-                    let endSquare = obstacles[i].end;
-                    activePlayer.target = obstacles[i].end;
-                    slide(activePlayer, walkSequence[endSquare - 1].x, walkSequence[endSquare - 1].y, slideSpeed);
-                    sliding = true;
-                    jumpSound.play();
-                    break;
+                    if (activePlayer.target==99 ||activePlayer.target==89||activePlayer.target==76||activePlayer.target==66||activePlayer.target==54||activePlayer.target==43||activePlayer.target==40||activePlayer.target==27||activePlayer.target==32){
+                        break;
+                    }
+                    else{
+
+                        let endSquare = obstacles[i].end;
+                        activePlayer.target = obstacles[i].end;
+                        slide(activePlayer, walkSequence[endSquare - 1].x, walkSequence[endSquare - 1].y, slideSpeed);
+                        sliding = true;
+                        jumpSound.play();
+                        break;
+
+                    }
                 }
-            }
+                else if(!isCorrect){
+                    if (activePlayer.target==99 ||activePlayer.target==89||activePlayer.target==76||activePlayer.target==66||activePlayer.target==54||activePlayer.target==43||activePlayer.target==40||activePlayer.target==27||activePlayer.target==32){
+                        let endSquare = obstacles[i].end;
+                        activePlayer.target = obstacles[i].end;
+                        slide(activePlayer, walkSequence[endSquare - 1].x, walkSequence[endSquare - 1].y, slideSpeed);
+                        sliding = true;
+                        jumpSound.play();
+                        break;
+                    }
+                }
+                }
+            
         }
 
         if (!sliding) {
@@ -206,6 +228,8 @@ const doRoll = () => {
     }
 };
 
+
+
 const diceRollDisplay = (spots) => {
     diceDisplay.classList = `s${spots}`;
 };
@@ -233,32 +257,120 @@ resetGameBtn.addEventListener('click', resetGame);
 
 let walkSequence = boustrophedonWalk(10, 10);
 
-const questions = [
-    {
-        question: "What is the capital of France?",
-        choices: ["Paris", "London", "Berlin"],
-        correctAnswer: "Paris",
-    },
-    {
-        question: "Which planet is known as the Red Planet?",
-        choices: ["Earth", "Mars", "Venus"],
-        correctAnswer: "Mars",
-    },
-    {
-        question: "What is 2 + 2?",
-        choices: ["3", "4", "5"],
-        correctAnswer: "4",
-    },
-    {
-        question: "Which gas do plants absorb from the atmosphere?",
-        choices: ["Oxygen", "Carbon Dioxide", "Nitrogen"],
-        correctAnswer: "Carbon Dioxide",
-    },
-];
+async function getRandomQuestion(){
+// const getRandomQuestion = () => {
 
-const getRandomQuestion = () => {
-    return questions[Math.floor(Math.random() * questions.length)];
-};
+    const apiKey = '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';
+    const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-002/completions';
+    const data = {
+      prompt: 'generate a random trivia question in this format:\n{"question": question,"choices": ["Choice 1", "Choice 2", "Choice 3"],"correctAnswer": "Correct Choice"}',
+      max_tokens: 200,
+      n: 1
+    };
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+  
+    return fetch(apiUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      const generatedQuestion = data.choices[0].text;
+      const triviaQuestion = JSON.parse(generatedQuestion);
+  
+   
+  
+      const question = triviaQuestion.question
+      const choices = triviaQuestion.choices
+      const correctAnswer = triviaQuestion.correctAnswer
+  
+      
+  
+  
+  
+      return { question, choices, correctAnswer };
+    
+    });
+}
+
+
+// const questions = [
+//     {
+//         question: "What is the capital of France?",
+//         choices: ["Paris", "London", "Berlin"],
+//         correctAnswer: "Paris",
+//     },
+//     {
+//         question: "Which planet is known as the Red Planet?",
+//         choices: ["Earth", "Mars", "Venus"],
+//         correctAnswer: "Mars",
+//     },
+//     {
+//         question: "What is 2 + 2?",
+//         choices: ["3", "4", "5"],
+//         correctAnswer: "4",
+//     },
+//     {
+//         question: "Which gas do plants absorb from the atmosphere?",
+//         choices: ["Oxygen", "Carbon Dioxide", "Nitrogen"],
+//         correctAnswer: "Carbon Dioxide",
+//     },
+// // ];
+// const getRandomQuestion = () => {
+
+//     const apiKey = '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';
+//     const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-002/completions';
+//     const data = {
+//       prompt: 'generate a random trivia question in this format:\n{"question": question,"choices": ["Choice 1", "Choice 2", "Choice 3"],"correctAnswer": "Correct Choice"}',
+//       max_tokens: 200,
+//       n: 1
+//     };
+//     const headers = {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${apiKey}`
+//     };
+  
+//     return fetch(apiUrl, {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(data)
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//       const generatedQuestion = data.choices[0].text;
+//       const triviaQuestion = JSON.parse(generatedQuestion);
+  
+   
+  
+//       const q = triviaQuestion.question
+//       const cho = triviaQuestion.choices
+//       const ans = triviaQuestion.correctAnswer
+  
+      
+  
+  
+  
+//       return { q, cho, ans };
+    
+//     });
+// }
+
+
+// var triviaResult = {};
+
+// getRandomQuestion()
+// .then(result => {
+//     triviaResult = {
+//     question: result.q,
+//     choices: result.cho,
+//     correctAnswer: result.ans
+//     };
+// });
+
 
 const displayQuestion = async (questionData) => {
     return new Promise((resolve, reject) => {
@@ -355,3 +467,4 @@ addFields(2);
 updatePlayersInfo();
 setPlayerID();
 // generatePlayerNames(2);
+
