@@ -258,7 +258,7 @@ resetGameBtn.addEventListener('click', resetGame);
 
 let walkSequence = boustrophedonWalk(10, 10);
 const getRandomQuestion = async () => {
-    const API_KEY  = '';
+    const API_KEY = process.env.API_KEY;
     const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
     const data = {
       prompt: 'generate a random trivia question in this format:\n{"question": question,"choices": ["Choice 1", "Choice 2", "Choice 3"],"correctAnswer": "Correct Choice"}',
