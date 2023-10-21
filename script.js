@@ -38,6 +38,7 @@ const obstacles = [
     { type: 'ladder', start: 4, end: 25 },
     { type: 'ladder', start: 13, end: 46 },
     { type: 'ladder', start: 50, end: 69 },
+    { type: 'ladder', start: 33, end: 49 },
     { type: 'ladder', start: 42, end: 63 },
     { type: 'ladder', start: 62, end: 81 },
     { type: 'ladder', start: 74, end: 92 },
@@ -166,7 +167,7 @@ const showWinner = () => {
     if (messageElement.innerText.endsWith(" is the winner")) {
         messageElement.innerText = `${activePlayer.id} is the winner`;
     } else {
-        messageElement.innerText = `${activePlayer.id} are the winner`;
+        messageElement.innerText = `${activePlayer.id} is the winner`;
     }
 
     resetGameBtn.classList.remove('hidden');
@@ -256,15 +257,12 @@ diceDisplay.addEventListener('click', rollDice);
 resetGameBtn.addEventListener('click', resetGame);
 
 let walkSequence = boustrophedonWalk(10, 10);
-
-async function getRandomQuestion(){
-// const getRandomQuestion = () => {
-
-    const apiKey = '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';
-    const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-002/completions';
+const getRandomQuestion = async () => {
+    const apiKey = '';
+    const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-003/completions';
     const data = {
       prompt: 'generate a random trivia question in this format:\n{"question": question,"choices": ["Choice 1", "Choice 2", "Choice 3"],"correctAnswer": "Correct Choice"}',
-      max_tokens: 200,
+      max_tokens: 300,
       n: 1
     };
     const headers = {
@@ -272,105 +270,30 @@ async function getRandomQuestion(){
       'Authorization': `Bearer ${apiKey}`
     };
   
-    return fetch(apiUrl, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
-      const generatedQuestion = data.choices[0].text;
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const responseData = await response.json();
+      const generatedQuestion = responseData.choices[0].text;
       const triviaQuestion = JSON.parse(generatedQuestion);
   
-   
-  
-      const question = triviaQuestion.question
-      const choices = triviaQuestion.choices
-      const correctAnswer = triviaQuestion.correctAnswer
-  
-      
-  
-  
+      const question = triviaQuestion.question;
+      const choices = triviaQuestion.choices;
+      const correctAnswer = triviaQuestion.correctAnswer;
   
       return { question, choices, correctAnswer };
-    
-    });
-}
-
-
-// const questions = [
-//     {
-//         question: "What is the capital of France?",
-//         choices: ["Paris", "London", "Berlin"],
-//         correctAnswer: "Paris",
-//     },
-//     {
-//         question: "Which planet is known as the Red Planet?",
-//         choices: ["Earth", "Mars", "Venus"],
-//         correctAnswer: "Mars",
-//     },
-//     {
-//         question: "What is 2 + 2?",
-//         choices: ["3", "4", "5"],
-//         correctAnswer: "4",
-//     },
-//     {
-//         question: "Which gas do plants absorb from the atmosphere?",
-//         choices: ["Oxygen", "Carbon Dioxide", "Nitrogen"],
-//         correctAnswer: "Carbon Dioxide",
-//     },
-// // ];
-// const getRandomQuestion = () => {
-
-//     const apiKey = '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';
-//     const apiUrl = 'https://api.openai.com/v1/engines/text-davinci-002/completions';
-//     const data = {
-//       prompt: 'generate a random trivia question in this format:\n{"question": question,"choices": ["Choice 1", "Choice 2", "Choice 3"],"correctAnswer": "Correct Choice"}',
-//       max_tokens: 200,
-//       n: 1
-//     };
-//     const headers = {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${apiKey}`
-//     };
-  
-//     return fetch(apiUrl, {
-//       method: 'POST',
-//       headers: headers,
-//       body: JSON.stringify(data)
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       const generatedQuestion = data.choices[0].text;
-//       const triviaQuestion = JSON.parse(generatedQuestion);
-  
-   
-  
-//       const q = triviaQuestion.question
-//       const cho = triviaQuestion.choices
-//       const ans = triviaQuestion.correctAnswer
-  
-      
-  
-  
-  
-//       return { q, cho, ans };
-    
-//     });
-// }
-
-
-// var triviaResult = {};
-
-// getRandomQuestion()
-// .then(result => {
-//     triviaResult = {
-//     question: result.q,
-//     choices: result.cho,
-//     correctAnswer: result.ans
-//     };
-// });
-
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
 const displayQuestion = async (questionData) => {
     return new Promise((resolve, reject) => {
@@ -467,4 +390,3 @@ addFields(2);
 updatePlayersInfo();
 setPlayerID();
 // generatePlayerNames(2);
-
