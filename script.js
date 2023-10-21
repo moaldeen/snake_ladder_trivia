@@ -34,7 +34,6 @@ const obstacles = [
     { type: 'snake', start: 43, end: 18 },
     { type: 'snake', start: 40, end: 3 },
     { type: 'snake', start: 27, end: 5 },
-    { type: 'snake', start: 32, end: 10 },
     { type: 'ladder', start: 4, end: 25 },
     { type: 'ladder', start: 13, end: 46 },
     { type: 'ladder', start: 50, end: 69 },
