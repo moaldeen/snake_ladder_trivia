@@ -20,25 +20,25 @@ https://moaldeen.github.io/snake_ladder_trivia/
 - The game retains the classic gameplay mechanics of Snake and Ladder, making it familiar and accessible. Players aim to reach the top of the game board by rolling the dice, and they face the challenges and surprises of snakes and ladders along the way.
 
 # Technology and Libraries used:
-1. HTML: The part of the code is written in HTML, which provides the structure and content for the web page.
+**1. HTML:** The part of the code is written in HTML, which provides the structure and content for the web page.
  
-2. CSS: We used Cascading Style Sheets (CSS) for styling the web page elements. It included styles for layout, colors, fonts, and more. Also to integrate an external image file of dice into the UI/UX of the game, we linked an external stylesheet with the URL https://assets.codepen.io/215128/diceSpots.png. which is taken from CodePen, an online development environment that allows developers to create and share web projects, including HTML, CSS, and JavaScript.
+**2. CSS:** We used Cascading Style Sheets (CSS) for styling the web page elements. It included styles for layout, colors, fonts, and more. Also to integrate an external image file of dice into the UI/UX of the game, we linked an external stylesheet with the URL https://assets.codepen.io/215128/diceSpots.png. which is taken from CodePen, an online development environment that allows developers to create and share web projects, including HTML, CSS, and JavaScript.
  
-3. JavaScript: Javascript programming language is the backbone of our game since all functions that handle the game’s mechanics, user interactions and random question generation when faced with obstacles are designed and coded in JavaScript.
+**3. JavaScript:** Javascript programming language is the backbone of our game since all functions that handle the game’s mechanics, user interactions and random question generation when faced with obstacles are designed and coded in JavaScript.
  
-4. Canvas: The HTML5 `<canvas>` element is used to draw the game board and provide a platform for rendering the game's grid and player movements.
+**4. Canvas:** The HTML5 `<canvas>` element is used to draw the game board and provide a platform for rendering the game's grid and player movements.
  
-5. Audio & Image files: To make the game more attractive to the audience, we have embedded two audio files "dice_sound.wav" and "jump.mp3” for dice rolling, ladder jumping, or snake biting, “BGM.jpg” for the background, and also two aesthetically pleasing images taken from popular image sourcing websites.
+**5. Audio & Image files:** To make the game more attractive to the audience, we have embedded two audio files "dice_sound.wav" and "jump.mp3” for dice rolling, ladder jumping, or snake biting, “BGM.jpg” for the background, and also two aesthetically pleasing images taken from popular image sourcing websites.
  
-6. GSAP (GreenSock Animation Platform): We utilized the GreenSock Animation Platform, which is a popular JavaScript animation library, to enhance the interactive elements and animations in our game. This library was accessed through 'unpkg,' a widely recognized content delivery network (CDN) specializing in delivering front-end web development libraries and packages for seamless integration into websites and web applications.
+**6. GSAP (GreenSock Animation Platform):** We utilized the GreenSock Animation Platform, which is a popular JavaScript animation library, to enhance the interactive elements and animations in our game. This library was accessed through 'unpkg,' a widely recognized content delivery network (CDN) specializing in delivering front-end web development libraries and packages for seamless integration into websites and web applications.
  
-7. Open API:The Fetch API is used for making HTTP requests to the OpenAI API. It is employed to request and retrieve random trivia questions that are displayed in the game. We have integrated this third-party OpenAI API to make our game more appealing to the audience.
+**7. Open API:** The Fetch API is used for making HTTP requests to the OpenAI API. It is employed to request and retrieve random trivia questions that are displayed in the game. We have integrated this third-party OpenAI API to make our game more appealing to the audience.
  
-8. GitHub Pages and GitHub repositories: We have utilized GitHub repositories for code collaboration and GitHub pages to host our game. The reason to choose GitHub pages over other hosting platforms is that it provides the opportunity to host our static game directly from our GitHub repositories.
+**8. GitHub Pages and GitHub repositories:** We have utilized GitHub repositories for code collaboration and GitHub pages to host our game. The reason to choose GitHub pages over other hosting platforms is that it provides the opportunity to host our static game directly from our GitHub repositories.
 
 # Setup and deployment instructions:
 
-1.** Hosted Repository:** Our Snake and Ladders Trivia game is hosted on GitHub pages and uses GitHub repositories for version control and code collaboration. 
+1. **Hosted Repository:** Our Snake and Ladders Trivia game is hosted on GitHub pages and uses GitHub repositories for version control and code collaboration. 
 Our GitHub repository link: https://github.com/moaldeen/snake_ladder_trivia 
 and our game Web URL: https://moaldeen.github.io/snake_ladder_trivia/
 
