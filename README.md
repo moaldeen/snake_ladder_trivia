@@ -20,3 +20,11 @@ https://moaldeen.github.io/snake_ladder_trivia/
 
 # Screenshot
 ![GitHub Logo](Screenshot.png)
+
+
+# Credits:
+1. Board image downloaded from Adobe Stock images: https://stock.adobe.com/search?k=Snakes+and+Ladders&asset_id=110727701
+2. Dice image from codepen: https://assets.codepen.io/215128/diceSpots.png
+3. Dice rolling sound from pixabay: https://pixabay.com/sound-effects/search/dice/
+4. Jump sound – “Cartoon Ladder Climbing” from pond5: https://www.pond5.com/search?kw=climbing-ladder&media=sfx
+5. Snakes ladders game using JavaScript and Gsap:  https://github.com/peter-kimanzi/snakes-ladders-game
