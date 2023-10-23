@@ -2,9 +2,9 @@
 The “Snake and Ladders with Trivia” game is a web-hosted game designed in response to the increasing demand for engaging virtual experiences in a world where remote work and online gatherings have become so common in day-to-day life. This game can be played during video calls, with one person taking control of the game interface, while others participate, interact, and enjoy the experience. This documentation provides a comprehensive overview of the project, including its features, setup instructions, and gameplay mechanics, all aimed at fostering interaction, engagement, and entertainment within a virtual environment.
 
 # Contributions:
-Anvitha Yerneni(C91145055)- ayernen@clemson.edu
-Harika Banda (C11992631)- hbanda@clemson.edu
-Mo Shujaa Aldeen - mshujaa@clemson.edu
+- Anvitha Yerneni(C91145055)- ayernen@clemson.edu
+- Harika Banda (C11992631)- hbanda@clemson.edu
+- Mo Shujaa Aldeen - mshujaa@clemson.edu
 # Livelink
 https://moaldeen.github.io/snake_ladder_trivia/
 
